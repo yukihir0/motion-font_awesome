@@ -1,0 +1,25 @@
+class FontAwesome
+  NAME = 'FontAwesome'
+
+  class << self
+    def data_source
+      {
+<% fonts.each do |key, value|
+%><%= "        '#{key}' => #{value},\n" %><%
+end %>
+      }
+    end
+
+    def icons
+      data_source.keys
+    end
+
+    def icon(css_class)
+      data_source.key?(css_class) ? data_source[css_class].chr(Encoding::UTF_8) : ''
+    end
+
+    def font(size = 12.0)
+      UIFont.fontWithName(NAME, size: size)
+    end
+  end
+end
